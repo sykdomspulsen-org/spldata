@@ -1,0 +1,36 @@
+---
+title: "spldata"
+output: rmarkdown::html_vignette
+author: "Richard Aubrey White"
+date: "2021-02-18"
+vignette: >
+  %\VignetteIndexEntry{spldata}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+`spldata` provides structural data for Norway.
+
+Please see https://folkehelseinstituttet.github.io/spldata/reference/index.html for a quick overview of all available datasets and functions.
+
+You can find out what version of `spldata` you have installed by running the following commands:
+
+```{r setup}
+library(spldata)
+library(data.table)
+```
+
+
+## granularity_geo
+
+The underlying foundation of the `spldata` package is the strict categorization of `location_code` into `granularity_geo`. The concept is that a person should (generally) have data for all values of `location_code` for each `granularity_geo` that they are interested in.

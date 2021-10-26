@@ -1,0 +1,19 @@
+Name: Make skeleton (day)
+Description: Make skeleton (day).
+Binding: addin_make_skeleton_day
+Interactive: false
+
+Name: Make skeleton (isoweek)
+Description: Make skeleton (isoweek).
+Binding: addin_make_skeleton_isoweek
+Interactive: false
+
+Name: Make skeleton (isoyear)
+Description: Make skeleton (isoyear).
+Binding: addin_make_skeleton_isoyear
+Interactive: false
+
+Name: Make skeleton (calyear)
+Description: Make skeleton (calyear).
+Binding: addin_make_skeleton_calyear
+Interactive: false
