@@ -7,6 +7,7 @@
 #' \item{title_nb}{Description of the code in Norwegian.}
 #' \item{title_en}{Description of the code in English.}
 #' }
+#' @import data.table
 #' @source \url{https://ehelse.no/kodeverk/icpc-2.den-internasjonale-klassifikasjonen-for-primaerhelsetjenesten}
 "icpc2_codes"
 

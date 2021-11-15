@@ -13,7 +13,7 @@
 }
 }
 \source{
-\url{}
+\url{https://en.wikipedia.org/wiki/NUTS_statistical_regions_of_Iceland}
 }
 \usage{
 iceland_locations_names_b2020

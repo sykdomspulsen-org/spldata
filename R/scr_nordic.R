@@ -8,6 +8,7 @@
 #' \item{location_name}{Location name.}
 #' }
 #' @source \url{https://en.wikipedia.org/wiki/NUTS_statistical_regions_of_Denmark}
+#' @import data.table
 "denmark_locations_names_b2020"
 
 gen_denmark_locations_names <- function(x_year_end) {
@@ -29,6 +30,7 @@ gen_denmark_locations_names <- function(x_year_end) {
 #' \item{location_name}{Location name.}
 #' }
 #' @source \url{https://en.wikipedia.org/wiki/NUTS_statistical_regions_of_Sweden}
+#' @import data.table
 "sweden_locations_names_b2020"
 
 gen_sweden_locations_names <- function(x_year_end) {
@@ -50,6 +52,8 @@ gen_sweden_locations_names <- function(x_year_end) {
 #' \item{location_name}{Location name (hospital district.}
 #' }
 #' @source \url{https://en.wikipedia.org/wiki/NUTS_statistical_regions_of_Finland}
+#' @import data.table
+
 "finland_locations_names_b2020"
 
 gen_finland_locations_names <- function(x_year_end) {
@@ -71,7 +75,8 @@ gen_finland_locations_names <- function(x_year_end) {
 #' \item{location_code}{Location code.}
 #' \item{location_name}{Location name.}
 #' }
-#' @source \url{}
+#' @source \url{https://en.wikipedia.org/wiki/NUTS_statistical_regions_of_Iceland}
+#' @import data.table
 "iceland_locations_names_b2020"
 
 gen_iceland_locations_names <- function(x_year_end) {
