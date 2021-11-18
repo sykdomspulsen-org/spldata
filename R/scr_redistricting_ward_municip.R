@@ -237,7 +237,8 @@ redistricting_missingmunicip <- function(
 # redistricting_notmainlandmunicip()
 redistricting_notmainlandmunicip <- function(
   x_year_end = 2020,
-  x_year_start = 1940){
+  x_year_start = 1940,
+  include_extra_vars = F){
 
   retval <- list()
   # municip2100 before 2018
@@ -281,6 +282,25 @@ redistricting_notmainlandmunicip <- function(
 
   retval <- rbindlist(retval)
 
+
+  if(include_extra_vars == T){
+    retval[location_code_current == "notmainlandmunicip2100", municip_name := "Svalbard"]
+    retval[location_code_current == "notmainlandmunicip2100", county_code := "notmainlandcounty21"]
+    retval[location_code_current == "notmainlandmunicip2100", county_name := "Utenfor fastlands-Norge (Svalbard)"]
+
+    retval[location_code_current == "notmainlandmunicip2200", municip_name := "Jan Mayen"]
+    retval[location_code_current == "notmainlandmunicip2200", county_code := "notmainlandcounty22"]
+    retval[location_code_current == "notmainlandmunicip2200", county_name := "Utenfor fastlands-Norge (Jan Mayen)"]
+
+    retval[, region_code := NA_character_]
+    retval[, region_name := NA_character_]
+    retval[, faregion_code := NA_character_]
+    retval[, faregion_name := NA_character_]
+
+    d <- copy(retval)
+
+  }
+
   d <- retval
   return(d)
 
@@ -294,7 +314,7 @@ redistricting_notmainlandmunicip <- function(
 # redistricting ward
 
 redistricting_ward <- function(
-  x_year_end,
+  x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = F) {
 
@@ -348,7 +368,7 @@ redistricting_ward <- function(
 
   continue_with_merging <- TRUE
   while (continue_with_merging) {
-    print("merging!")
+    # print("merging!")
     skeleton <- merge(
       skeleton,
       merger,
