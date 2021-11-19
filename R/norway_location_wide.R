@@ -198,6 +198,21 @@ gen_location_name_all <- function(x_year_end = 2020) {
   d[, group_order := NULL]
   d[, location_order := 1:.N]
 
+  # lab ----
+
+  lab <- gen_location_lab()
+
+  lab_wide <- copy(lab)
+  setnames(lab_wide, c("lab_code", "lab_name"), c("location_code", "location_name"))
+
+  lab_wide[, granularity_geo := "lab"]
+  lab_wide[, location_order := (1:nrow(lab_wide) + max(d$location_order))]
+
+  d <- rbind(d, lab_wide)
+  d
+
+
+
   # location name description nb ----
   d[granularity_geo== "nation", location_name_description_nb := location_name]
   d[granularity_geo== "county", location_name_description_nb := paste0(location_name, " (fylke)")]
@@ -205,56 +220,59 @@ gen_location_name_all <- function(x_year_end = 2020) {
   d[granularity_geo== "missingcounty", location_name_description_nb := paste0(location_name, " (fylke)")]
 
 
-  # d[norway_locations_hierarchy(from="municip",to="county",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="notmainlandmunicip",to="notmainlandcounty",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="missingmunicip",to="missingcounty",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
-  # ]
-  #
-  # d[norway_locations_hierarchy(from=c("wardoslo","extrawardoslo"),to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="wardbergen",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="wardtrondheim",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="wardstavanger",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  #
-  # d[norway_locations_hierarchy(from="missingwardoslo",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="missingwardbergen",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="missingwardtrondheim",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
-  # d[norway_locations_hierarchy(from="missingwardstavanger",to="municip",include_to_name = T, border = x_year_end),
-  #   on="location_code==from_code",
-  #   location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
-  # ]
+  d[norway_locations_hierarchy(from="municip",to="county",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="notmainlandmunicip",to="notmainlandcounty",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="missingmunicip",to="missingcounty",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
+  ]
+
+  d[norway_locations_hierarchy(from=c("wardoslo","extrawardoslo"),to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="wardbergen",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="wardtrondheim",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="wardstavanger",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+
+  d[norway_locations_hierarchy(from="missingwardoslo",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="missingwardbergen",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="missingwardtrondheim",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
+  d[norway_locations_hierarchy(from="missingwardstavanger",to="municip",include_to_name = T, border = x_year_end),
+    on="location_code==from_code",
+    location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
+  ]
 
   d[granularity_geo== "baregion", location_name_description_nb := paste0(location_name, " (BA-region)")]
   d[granularity_geo== "faregion", location_name_description_nb := paste0(location_name, " (Mattilsynet-region)")]
   d[granularity_geo== "region", location_name_description_nb := paste0(location_name, " (region)")]
+
+  d[granularity_geo == "lab", location_name_description_nb := paste0(location_name, " (lab)")]
+
 
   # nb_utf ----
   d[, location_name_file_nb_utf := location_name_description_nb]
@@ -284,7 +302,8 @@ gen_location_name_all <- function(x_year_end = 2020) {
   # d[, location_name_description_nb := iconv(location_name_description_nb, from="UTF-8", to="ASCII")]
   # d[, location_name_file_nb_utf := iconv(location_name_file_nb_utf, from="UTF-8", to="ASCII")]
 
-  d
+
+
   setcolorder(
     d,
     c(
