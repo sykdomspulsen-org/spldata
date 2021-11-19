@@ -149,7 +149,7 @@
 # }
 
 
-gen_hierarchy_from_redistrict <- function(
+hierarchy_from_redistrict <- function(
   geo_granularity,
   x_year_end = 2020,
   x_year_start = 1940
@@ -237,21 +237,21 @@ hierarchy_all <- function(
 
 
   # municip ----
-  municip <- gen_hierarchy_from_redistrict(geo_granularity = "municip")
+  municip <- hierarchy_from_redistrict(geo_granularity = "municip")
   municip[, municip_code_original := NULL]
   setnames(municip, "municip_code_current", "municip_code")
 
 
 
   # ward ----
-  ward <- gen_hierarchy_from_redistrict(geo_granularity = "ward")
+  ward <- hierarchy_from_redistrict(geo_granularity = "ward")
   ward[, municip_name := NULL]
   ward[, ward_code_original := NULL]
   setnames(ward, "ward_code_current", "ward_code")
 
 
   # notmainlandmunicip ----
-  notmainlandmunicip <- gen_hierarchy_from_redistrict(geo_granularity = "notmainlandmunicip")
+  notmainlandmunicip <- hierarchy_from_redistrict(geo_granularity = "notmainlandmunicip")
   notmainlandmunicip[, location_code_original := NULL]
   setnames(
     notmainlandmunicip,
@@ -261,7 +261,7 @@ hierarchy_all <- function(
 
 
   # missingmunicip ----
-  missingmunicip <- gen_hierarchy_from_redistrict(geo_granularity = "missingmunicip")
+  missingmunicip <- hierarchy_from_redistrict(geo_granularity = "missingmunicip")
   missingmunicip[, location_code_original := NULL]
   setnames(
     missingmunicip,
@@ -271,7 +271,7 @@ hierarchy_all <- function(
 
 
   # missingward ----
-  missingward <- gen_hierarchy_from_redistrict(geo_granularity = "missingward")
+  missingward <- hierarchy_from_redistrict(geo_granularity = "missingward")
   missingward[, municip_name := NULL]
   missingward[, location_code_original := NULL]
   setnames(missingward, c("location_code_current", "location_name"), c("missingward_code","missingward_name"))
@@ -309,7 +309,6 @@ hierarchy_all <- function(
 
   return(d)
 }
-
 
 
 

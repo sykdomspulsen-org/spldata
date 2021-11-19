@@ -36,6 +36,10 @@ gen_data_all <- function(base_loc) {
   save(icpc2_codes, file = file.path(base_loc, paste0("icpc2_codes",".rda")), compress = "xz")
 
 
+
+
+
+
 }
 
 
