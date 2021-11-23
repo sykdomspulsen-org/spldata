@@ -7,13 +7,12 @@
 # 4. this table is too wide, consider using smaller excels
 # IMPORTANT: for now do NOT optimise. just recycle the old code!
 
-# location_redistricting_municip()
 
 
 # municip ----
 
 
-redistricting_municip <- function(
+nor_loc_redistricting_municip <- function(
   x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = FALSE) {
@@ -196,8 +195,8 @@ redistricting_municip <- function(
 
 
 
-redistricting_missingmunicip <- function(
-  x_year_end,
+nor_loc_redistricting_missingmunicip <- function(
+  x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = FALSE
 ){
@@ -235,7 +234,7 @@ redistricting_missingmunicip <- function(
 
 
 # redistricting_notmainlandmunicip()
-redistricting_notmainlandmunicip <- function(
+nor_loc_redistricting_notmainlandmunicip <- function(
   x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = F){
@@ -313,14 +312,14 @@ redistricting_notmainlandmunicip <- function(
 
 # redistricting ward
 
-redistricting_ward <- function(
+nor_loc_redistricting_ward <- function(
   x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = F) {
 
 
   masterData <- data.table(readxl::read_excel(
-    system.file("rawdata", "locations", "norway_locations_ward.xlsx", package = "fhidata"),
+    system.file("rawdata", "locations", "norway_locations_ward.xlsx", package = "spldata"),
     col_types = c(
       "numeric",
       "numeric",
@@ -458,8 +457,8 @@ redistricting_ward <- function(
 
 
 
-redistricting_missingward <- function(
-  x_year_end,
+nor_loc_redistricting_missingward <- function(
+  x_year_end = 2020,
   x_year_start = 1940,
   include_extra_vars = FALSE){
 
@@ -525,7 +524,7 @@ redistricting_missingward <- function(
 
 
 # Creates the norway_county_merging (fylkesammenslaaing) data.table
-redistricting_county <- function(x_year_end = 2020, x_year_start = 2000) {
+nor_loc_redistricting_county <- function(x_year_end = 2020, x_year_start = 2000) {
   # variables used in data.table functions in this function
   . <- NULL
   year_start <- NULL
@@ -559,17 +558,17 @@ redistricting_county <- function(x_year_end = 2020, x_year_start = 2000) {
   # x_year_start <- 2000
 
   # generate municip
-  municips <- redistricting_municip(x_year_end = x_year_end,x_year_start = x_year_start)
+  municips <- nor_loc_redistricting_municip(x_year_end = x_year_end,x_year_start = x_year_start)
 
   # population ----
 
-  pop_municip <- population_by_age(x_year_end = x_year_end, original = TRUE)
+  pop_municip <- nor_population_by_age(x_year_end = x_year_end, original = TRUE)
   pop_municip <- pop_municip[imputed == FALSE,
                              .(population = sum(population)),
                              keyby = .(municip_code, year)]
 
   # imputed
-  pops1 <- population_by_age(x_year_end = x_year_end)
+  pops1 <- nor_population_by_age(x_year_end = x_year_end)
   pops1 <- pops1[imputed == TRUE & level == "municip",
                  .(population = sum(population)),
                  keyby = .(municip_code = location_code, year)]
@@ -588,7 +587,7 @@ redistricting_county <- function(x_year_end = 2020, x_year_start = 2000) {
   x[, county_code_original := stringr::str_replace(county_code_original, "municip", "county")]
   x[, county_code_current := stringr::str_replace(county_code_current, "municip", "county")]
 
-  x[, weighting := weighting * pop]
+  x[, weighting := weighting * population]
   x <- x[, .(
     weighting = sum(weighting)
   ), keyby = .(
@@ -656,8 +655,8 @@ redistricting_county <- function(x_year_end = 2020, x_year_start = 2000) {
 # }
 
 
-redistricting_missingcounty <- function(
-  x_year_end,
+nor_loc_redistricting_missingcounty <- function(
+  x_year_end = 2020,
   x_year_start = 1940){
 
   retval <- data.table(location_code_current = "missingcounty99",
@@ -670,8 +669,8 @@ redistricting_missingcounty <- function(
 }
 
 
-redistricting_notmainlandcounty<- function(
-  x_year_end,
+nor_loc_redistricting_notmainlandcounty<- function(
+  x_year_end = 2020,
   x_year_start = 1940){
 
   sv <- data.table(location_code_current = "notmainlandcounty21",
@@ -693,45 +692,62 @@ redistricting_notmainlandcounty<- function(
 
 # ____ all ____ ====
 
-norway_locations_redistricting_makedata <- function(){
+nor_loc_redistricting_all <- function(border = 2020){
 
-  norway_locations_redistricting_county_b2020 <- gen_norway_locations_redistricting_county()
-  norway_locations_redistricting_municip_b2020 <- gen_norway_locations_redistricting_municip()
-  norway_locations_redistricting_ward_b2020 <- gen_norway_locations_redistricting_ward()
-  norway_locations_redistricting_notmainlandcounty_b2020 <- gen_norway_locations_redistricting_notmainlandcounty()
-  norway_locations_redistricting_notmainlandmunicip_b2020 <- gen_norway_locations_redistricting_notmainlandmunicip()
-  norway_locations_redistricting_missingcounty_b2020 <- gen_norway_locations_redistricting_missingcounty()
-  norway_locations_redistricting_missingmunicip_b2020 <- gen_norway_locations_redistricting_missingmunicip()
-  norway_locations_redistricting_missingward_b2020 <- gen_norway_locations_redistricting_missingward()
+  stopifnot(border == 2020) # for the future
 
-  norway_locations_redistricting_b2020 <- rbind(
+
+  # municip, ward
+  d_norway_locations_redistricting_municip_b2020 <- nor_loc_redistricting_municip()
+  d_norway_locations_redistricting_ward_b2020 <- nor_loc_redistricting_ward()
+  d_norway_locations_redistricting_notmainlandmunicip_b2020 <- nor_loc_redistricting_notmainlandmunicip()
+  d_norway_locations_redistricting_missingmunicip_b2020 <- nor_loc_redistricting_missingmunicip()
+  d_norway_locations_redistricting_missingward_b2020 <- nor_loc_redistricting_missingward()
+
+  # county
+  d_norway_locations_redistricting_county_b2020 <- nor_loc_redistricting_county()
+  d_norway_locations_redistricting_missingcounty_b2020 <- nor_loc_redistricting_missingcounty()
+  d_norway_locations_redistricting_notmainlandcounty_b2020 <- nor_loc_redistricting_notmainlandcounty()
+
+
+  # some colname consistency
+  setnames(d_norway_locations_redistricting_municip_b2020, "municip_code_current", "location_code_current")
+  setnames(d_norway_locations_redistricting_municip_b2020, "municip_code_original", "location_code_original")
+  setnames(d_norway_locations_redistricting_ward_b2020, "ward_code_current", "location_code_current")
+  setnames(d_norway_locations_redistricting_ward_b2020, "ward_code_original", "location_code_original")
+
+
+  # bind with nation level
+  d_norway_locations_redistricting_b2020 <- rbind(
+    # nation
     data.table::data.table(
       location_code_current = "norge",
       location_code_original = "norge",
       year = 1975:(lubridate::year(lubridate::today())+10),
       weighting = 1
     ),
-    norway_locations_redistricting_county_b2020,
-    norway_locations_redistricting_municip_b2020,
-    norway_locations_redistricting_ward_b2020,
-    norway_locations_redistricting_notmainlandcounty_b2020,
-    norway_locations_redistricting_notmainlandmunicip_b2020,
-    norway_locations_redistricting_missingcounty_b2020,
-    norway_locations_redistricting_missingmunicip_b2020,
-    norway_locations_redistricting_missingward_b2020
+    # local
+    d_norway_locations_redistricting_county_b2020,
+    d_norway_locations_redistricting_municip_b2020,
+    d_norway_locations_redistricting_ward_b2020,
+    d_norway_locations_redistricting_notmainlandcounty_b2020,
+    d_norway_locations_redistricting_notmainlandmunicip_b2020,
+    d_norway_locations_redistricting_missingcounty_b2020,
+    d_norway_locations_redistricting_missingmunicip_b2020,
+    d_norway_locations_redistricting_missingward_b2020
   )
-  norway_locations_redistricting_b2020[, granularity_geo := get_granularity_geo(location_code_current)]
-  setnames(norway_locations_redistricting_b2020, "year", "calyear")
-  save(norway_locations_redistricting_b2020, file = file.path(base_loc, paste0("norway_locations_redistricting_b2020",".rda")), compress = "xz")
+  d_norway_locations_redistricting_b2020[, granularity_geo := get_granularity_geo(location_code_current)]
+  setnames(d_norway_locations_redistricting_b2020, "year", "calyear")
 
 
-
-
+  return(d_norway_locations_redistricting_b2020)
 }
 
 
 
 
+
+# (export) ====
 
 #' Redistricting in Norway (2020 borders).
 #'

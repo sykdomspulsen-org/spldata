@@ -1,3 +1,84 @@
+hierarchy_from_redistrict <- function(
+  geo_granularity,
+  x_year_end = 2020,
+  x_year_start = 1940
+){
+
+  stopifnot(geo_granularity %in% c(
+    "municip", "ward", "notmainlandmunicip", "missingmunicip", "missingward"
+  ))
+
+  # municip (incl. ba) ----#
+  if(geo_granularity == "municip"){
+    # geo_granularity <- "municip"
+
+
+    d <- nor_loc_redistricting_municip(x_year_end = x_year_end,
+                                       x_year_start = x_year_start,
+                                       include_extra_vars = T)
+
+
+    # ba ---- #
+    ba <- nor_loc_name_ba_wide()
+
+    d[
+      ba,
+      on="municip_code_current==municip_code",
+      baregion_code := baregion_code
+    ]
+    d[
+      ba,
+      on="municip_code_current==municip_code",
+      baregion_name := baregion_name
+    ]
+
+    # ward ----#
+  }else if(geo_granularity == "ward"){
+
+    # geo_granularity <- "ward"
+
+    d <- nor_loc_redistricting_ward(x_year_end = x_year_end,
+                                    x_year_start = x_year_start,
+                                    include_extra_vars = T)
+
+    # notmainlandmunicip ----#
+  }else if(geo_granularity == "notmainlandmunicip"){
+    # geo_granularity <- 'notmainlandmunicip'
+
+    d <- nor_loc_redistricting_notmainlandmunicip(x_year_end = x_year_end,
+                                                  x_year_start = x_year_start,
+                                                  include_extra_vars = T)
+
+
+    # missingmunicip ----#
+  }else if(geo_granularity == "missingmunicip"){
+
+    d <- nor_loc_redistricting_missingmunicip(x_year_end = x_year_end,
+                                              x_year_start = x_year_start,
+                                              include_extra_vars = T)
+
+
+    # missingward ---- #
+  }else if(geo_granularity == "missingward"){
+    d <- nor_loc_redistricting_missingward(x_year_end = x_year_end,
+                                           x_year_start = x_year_start,
+                                           include_extra_vars = T)
+
+  }else{
+    stop("specify geo_granularity")
+  }
+
+  d <- d[year==max(year)]
+  d[, year := NULL]
+  d[, weighting := NULL]
+
+  d
+
+  return(d)
+}
+
+
+
 #' Hierarchy of different levels in Norway (2020 borders).
 #'#'
 #' Last updated 2021-02-15
@@ -27,210 +108,11 @@
 #' \item{missingcounty_code}{The location code as of 'year'.}
 #' \item{missingcounty_name}{The location code as of 'year'.}
 #' }
-"norway_locations_hierarchy_all_b2020"
-
-# hierarchy_municip <- function(
-#   x_year_end,
-#   x_year_start = 1940
-# ){
-#
-#   d <- gen_norway_locations_redistricting_municip_internal(
-#     x_year_end = x_year_end,
-#     x_year_start = 1940,
-#     include_extra_vars = T
-#   )[year==max(year)]
-#   d[, year := NULL]
-#   d[, weighting := NULL]
-#
-#
-#   # ba ---- #
-#   ba <- data.table(readxl::read_excel(system.file("rawdata", "locations", "baregioner_2020.xlsx", package = "fhidata")))
-#   setnames(
-#     ba,
-#     1:2,
-#     c(
-#       "municip",
-#       "ba"
-#     )
-#   )
-#   ba[, municip_code := paste0(
-#     "municip",
-#     formatC(as.numeric(
-#       stringr::str_extract(municip, "^[0-9]+")),
-#       width=4,
-#       flag=0
-#     ))
-#   ]
-#   ba[, baregion_code := paste0(
-#     "baregion",
-#     formatC(as.numeric(
-#       stringr::str_extract(ba, "^[0-9]+")),
-#       width=3,
-#       flag=0
-#     ))
-#   ]
-#   ba[, baregion_name := stringr::str_remove_all(ba, "^[0-9]+ ")]
-#   d[
-#     ba,
-#     on="municip_code_current==municip_code",
-#     baregion_code := baregion_code
-#   ]
-#   d[
-#     ba,
-#     on="municip_code_current==municip_code",
-#     baregion_name := baregion_name
-#   ]
-#
-#   return(invisible(d))
-# }
-
-# hierarchy_ward <- function(
-#   x_year_end = 2020,
-#   x_year_start = 1940
-# ){
-#
-#   d <- redistricting_ward(
-#     x_year_end = x_year_end,
-#     x_year_start = 1940,
-#     include_extra_vars = T
-#   )[year==max(year)]
-#   d[, year := NULL]
-#   d[, weighting := NULL]
-#
-#   return(d)
-# }
-
-# hierarchy_notmainland <- function(
-#   x_year_end = 2020,
-#   x_year_start = 1940
-# ){
-#
-#   d <- redistricting_notmainlandmunicip(
-#     x_year_end = x_year_end,
-#     x_year_start = 1940,
-#     include_extra_vars = T
-#   )[year==max(year)]
-#   d[, year := NULL]
-#   d[, weighting := NULL]
-#
-#   return(invisible(d))
-# }
-
-# hierarchy_missingmunicip <- function(
-#   x_year_end,
-#   x_year_start = 1940
-# ){
-#
-#   d <- redistricting_missingmunicip(
-#     x_year_end = x_year_end,
-#     x_year_start = 1940,
-#     include_extra_vars = T
-#   )[year==max(year)]
-#   d[, year := NULL]
-#   d[, weighting := NULL]
-#
-#   return(invisible(d))
-# }
-
-# hierarchy_missingward <- function(
-#   x_year_end,
-#   x_year_start = 1940
-# ){
-#
-#   d <- redistricting_missingward(
-#     x_year_end = x_year_end,
-#     x_year_start = 1940,
-#     include_extra_vars = T
-#   )[year==max(year)]
-#   d[, year := NULL]
-#   d[, weighting := NULL]
-#
-#   return(invisible(d))
-# }
+"norway_locations_hierarchy_b2020"
 
 
-hierarchy_from_redistrict <- function(
-  geo_granularity,
-  x_year_end = 2020,
-  x_year_start = 1940
-){
-
-  stopifnot(geo_granularity %in% c(
-    "municip", "ward", "notmainlandmunicip", "missingmunicip", "missingward"
-  ))
-
-  # municip (incl. ba) ----#
-  if(geo_granularity == "municip"){
-    # geo_granularity <- "municip"
-
-
-    d <- redistricting_municip(x_year_end = x_year_end,
-                               x_year_start = x_year_start,
-                               include_extra_vars = T)
-
-
-    # ba ---- #
-    ba <- gen_location_name_ba_wide()
-
-    d[
-      ba,
-      on="municip_code_current==municip_code",
-      baregion_code := baregion_code
-    ]
-    d[
-      ba,
-      on="municip_code_current==municip_code",
-      baregion_name := baregion_name
-    ]
-
-    # ward ----#
-  }else if(geo_granularity == "ward"){
-
-    # geo_granularity <- "ward"
-
-    d <- redistricting_ward(x_year_end = x_year_end,
-                            x_year_start = x_year_start,
-                            include_extra_vars = T)
-
-    # notmainlandmunicip ----#
-  }else if(geo_granularity == "notmainlandmunicip"){
-    # geo_granularity <- 'notmainlandmunicip'
-
-    d <- redistricting_notmainlandmunicip(x_year_end = x_year_end,
-                                          x_year_start = x_year_start,
-                                          include_extra_vars = T)
-
-
-    # missingmunicip ----#
-  }else if(geo_granularity == "missingmunicip"){
-
-    d <- redistricting_missingmunicip(x_year_end = x_year_end,
-                                          x_year_start = x_year_start,
-                                          include_extra_vars = T)
-
-
-    # missingward ---- #
-  }else if(geo_granularity == "missingward"){
-    d <- redistricting_missingward(x_year_end = x_year_end,
-                                      x_year_start = x_year_start,
-                                      include_extra_vars = T)
-
-  }else{
-    stop("specify geo_granularity")
-  }
-
-  d <- d[year==max(year)]
-  d[, year := NULL]
-  d[, weighting := NULL]
-
-  d
-
-  return(d)
-}
-
-
-
-hierarchy_all <- function(
+# nor_loc_hierarchy_all()
+nor_loc_hierarchy_all <- function(
   x_year_end = 2020,
   x_year_start = 1940
 ){
@@ -313,8 +195,15 @@ hierarchy_all <- function(
 
 
 
+# (export int) ----
 
-norway_locations_hierarchy_internal <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
+
+# nor_loc_hierarchy_from_to(from = 'county', to = 'municip')
+nor_loc_hierarchy_from_to <- function(
+  from,
+  to,
+  include_to_name = FALSE,
+  border = spldata::config$border){
 
   stopifnot(border == 2020)
   stopifnot(from %in% c(
@@ -358,7 +247,8 @@ norway_locations_hierarchy_internal <- function(from, to, include_to_name = FALS
     "missingcounty"
   ))
 
-  d <- spldata::norway_locations_hierarchy_all_b2020
+  d <- spldata::norway_locations_hierarchy_b2020
+  # d <- norway_locations_hierarchy_all_b2020
 
 
   if(from %in% c(
@@ -450,6 +340,7 @@ norway_locations_hierarchy_internal <- function(from, to, include_to_name = FALS
 }
 
 
+# (export) ----
 
 #' Hierarchies in Norway (programmable borders).
 #'
@@ -458,10 +349,10 @@ norway_locations_hierarchy_internal <- function(from, to, include_to_name = FALS
 #' @param include_to_name Do you want to include the name of the 'to' location?
 #' @param border The border year
 #' @examples
-#' norway_locations_hierarchy(from="wardoslo", to="county")
-#' norway_locations_hierarchy(from="municip", to="baregion")
+#' norway_locations_hierarchy_from_to(from="wardoslo", to="county")
+#' norway_locations_hierarchy_from_to(from="municip", to="baregion")
 #' @export
-norway_locations_hierarchy <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
+norway_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
   plans <- expand.grid(
     from = from,
     to = to,
@@ -469,7 +360,7 @@ norway_locations_hierarchy <- function(from, to, include_to_name = FALSE, border
   )
   retval <- vector("list", length=nrow(plans))
   for(i in seq_along(retval)){
-    retval[[i]] <- norway_locations_hierarchy_internal(from=plans$from[i], to=plans$to[i], include_to_name, border)
+    retval[[i]] <- nor_loc_hierarchy_from_to(from=plans$from[i], to=plans$to[i], include_to_name, border)
   }
   retval <- unique(rbindlist(retval))
   retval

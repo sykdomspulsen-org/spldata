@@ -1,10 +1,29 @@
-# need to compare the difference between multiple copies of population..
+#' Population in Norway (2020 borders).
+#'
+#' We conveniently package population data taken from Statistics Norway.
+#' This data is licensed under the Norwegian License for
+#' Open Government Data (NLOD) 2.0.
+#'
+#' This dataset contains national/county/municipality/ward (city district) level population data
+#' for every age (0 to 105 years old). The national level data is from year 1846, while all the
+#' other levels have data from 2005.
+#'
+#' The counties and municipalities are updated for the 2020 borders.
+#'
+#' @format
+#' \describe{
+#' \item{year}{Year.}
+#' \item{location_code}{The location code.}
+#' \item{granularity_geo}{National/County/Municipality/BAregion.}
+#' \item{age}{1 year ages from 0 to 105.}
+#' \item{pop_jan1}{Number of people as of 1st of January.}
+#' \item{imputed}{FALSE if real data. TRUE if it is the last real data point carried forward.}
+#' }
+#' @source \url{https://www.ssb.no/en/statbank/table/07459/tableViewLayout1/}
+"norway_population_by_age_b2020"
 
 
-# this is what redistricting county depends on
-
-
-population_by_age <- function(x_year_end = 2020, original = FALSE) {
+nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
 
   # x_year_end <- 2020
   # variables used in data.table functions in this function
@@ -174,8 +193,8 @@ population_by_age <- function(x_year_end = 2020, original = FALSE) {
   # kommunesammenslaing ----
   # x_year_end <- 2020
 
-  redistr_prepost_municip <- redistricting_municip()
-  redistr_prepost_ward <- redistricting_ward()
+  redistr_prepost_municip <- nor_loc_redistricting_municip()
+  redistr_prepost_ward <- nor_loc_redistricting_ward()
   # unique(redistr_prepost_municip[, 1:2])  # 734 unique rows
   # unique(redistr_prepost_ward[, 1:2]) # 50 unique rows
 
@@ -223,7 +242,7 @@ population_by_age <- function(x_year_end = 2020, original = FALSE) {
   # county ----
   cat("creating population for county ... \n")
 
-  locations_municip_wide <- gen_location_name_municip_wide()
+  locations_municip_wide <- nor_loc_name_municip_wide()
 
   pop_municip_match_county <- merge(
     pop_municip,

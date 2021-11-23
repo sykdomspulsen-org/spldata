@@ -2,6 +2,6 @@
   packageStartupMessage(paste(
     "spldata",
     utils::packageDescription("spldata")$Version,
-    "https://sykdomspulsen-org.github.io/spldata/"
+    "https://docs.sykdomspulsen.no/spldata/"
   ))
 }

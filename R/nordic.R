@@ -1,3 +1,5 @@
+# location names ----
+
 #' Names of areas in Denmark that existed in 2020.
 #'
 #' @format
@@ -11,7 +13,7 @@
 #' @import data.table
 "denmark_locations_names_b2020"
 
-gen_denmark_locations_names <- function(x_year_end) {
+dnk_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
   d <- readxl::read_excel(system.file("rawdata", "locations", "locations_denmark_b2020.xlsx", package = "spldata"))
@@ -33,7 +35,7 @@ gen_denmark_locations_names <- function(x_year_end) {
 #' @import data.table
 "sweden_locations_names_b2020"
 
-gen_sweden_locations_names <- function(x_year_end) {
+swe_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
   d <- readxl::read_excel(system.file("rawdata", "locations", "locations_sweden_b2020.xlsx", package = "spldata"))
@@ -56,7 +58,7 @@ gen_sweden_locations_names <- function(x_year_end) {
 
 "finland_locations_names_b2020"
 
-gen_finland_locations_names <- function(x_year_end) {
+fin_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
   d <- readxl::read_excel(system.file("rawdata", "locations", "locations_finland_b2020.xlsx", package = "spldata"))
@@ -79,7 +81,7 @@ gen_finland_locations_names <- function(x_year_end) {
 #' @import data.table
 "iceland_locations_names_b2020"
 
-gen_iceland_locations_names <- function(x_year_end) {
+isl_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
   d <- readxl::read_excel(system.file("rawdata", "locations", "locations_iceland_b2020.xlsx", package = "spldata"))
@@ -90,52 +92,53 @@ gen_iceland_locations_names <- function(x_year_end) {
 
 
 
-# population ---- #
+# population ----
 
-# gen_denmark_population_by_age <- function(x_year_end) {
-#   stopifnot(x_year_end == 2020)
-#
-#   d <- readxl::read_excel(system.file("rawdata", "population", "population_denmark_b2020.xlsx", package = "spldata"))
-#   setDT(d)
-#   d1 <- copy(d)
-#   d1[, year := 2021]
-#   d <- rbind(d,d1)
-#   return(d)
-# }
-#
-# gen_sweden_population_by_age <- function(x_year_end) {
-#   stopifnot(x_year_end == 2020)
-#
-#   d <- readxl::read_excel(system.file("rawdata", "population", "population_sweden_b2020.xlsx", package = "spldata"))
-#   setDT(d)
-#   d1 <- copy(d)
-#   d1[, year := 2021]
-#   d <- rbind(d,d1)
-#   return(d)
-# }
-#
-# gen_finland_population_by_age <- function(x_year_end) {
-#   stopifnot(x_year_end == 2020)
-#
-#   d <- readxl::read_excel(system.file("rawdata", "population", "population_finland_b2020.xlsx", package = "spldata"))
-#   setDT(d)
-#   d1 <- copy(d)
-#   d1[, year := 2021]
-#   d <- rbind(d,d1)
-#   return(d)
-# }
-#
-# gen_iceland_population_by_age <- function(x_year_end) {
-#   stopifnot(x_year_end == 2020)
-#
-#   d <- readxl::read_excel(system.file("rawdata", "population", "population_iceland_b2020.xlsx", package = "spldata"))
-#   setDT(d)
-#   d1 <- copy(d)
-#   d1[, year := 2021]
-#   d <- rbind(d,d1)
-#   return(d)
-# }
-#
+dnk_population_by_age <- function(x_year_end) {
+  stopifnot(x_year_end == 2020)
+
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_denmark_b2020.xlsx", package = "spldata"))
+  setDT(d)
+  d1 <- copy(d)
+  d1[, year := 2021]
+  d <- rbind(d,d1)
+  return(d)
+}
+
+swe_population_by_age <- function(x_year_end) {
+  stopifnot(x_year_end == 2020)
+
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_sweden_b2020.xlsx", package = "spldata"))
+  setDT(d)
+  d1 <- copy(d)
+  d1[, year := 2021]
+  d <- rbind(d,d1)
+  return(d)
+}
+
+fin_population_by_age <- function(x_year_end) {
+  stopifnot(x_year_end == 2020)
+
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_finland_b2020.xlsx", package = "spldata"))
+  setDT(d)
+  d1 <- copy(d)
+  d1[, year := 2021]
+  d <- rbind(d,d1)
+  return(d)
+}
+
+
+isl_population_by_age <- function(x_year_end) {
+  stopifnot(x_year_end == 2020)
+
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_iceland_b2020.xlsx", package = "spldata"))
+  setDT(d)
+  d1 <- copy(d)
+  d1[, year := 2021]
+  d <- rbind(d,d1)
+  return(d)
+}
+
 
 
 

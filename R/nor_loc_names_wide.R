@@ -1,5 +1,5 @@
 
-gen_location_name_ba_wide <- function(x_year_end = 2020){
+nor_loc_name_ba_wide <- function(x_year_end = 2020){
 
   ba <- data.table(readxl::read_excel(system.file("rawdata", "locations", "baregioner_2020.xlsx", package = "spldata")))
   setnames(
@@ -41,7 +41,7 @@ gen_location_name_ba_wide <- function(x_year_end = 2020){
 # original: fhidata::norway_locations_b2020
 # NEW NAME: location_name_municip_wide
 
-gen_location_name_municip_wide <- function(x_year_end = 2020) {
+nor_loc_name_municip_wide <- function(x_year_end = 2020) {
 
   # variables used by data.table
   is_current <- NULL
@@ -50,7 +50,7 @@ gen_location_name_municip_wide <- function(x_year_end = 2020) {
   # x_year_end <- 2020
 
   # municip ----
-  municip <- redistricting_municip(x_year_end = x_year_end, include_extra_vars = T)
+  municip <- nor_loc_redistricting_municip(x_year_end = x_year_end, include_extra_vars = T)
 
   municip <- municip[year == max(year)]
   municip <- unique(municip[, c("municip_code_current", "municip_name",
@@ -68,7 +68,7 @@ gen_location_name_municip_wide <- function(x_year_end = 2020) {
   # if x_year_end = 2020 then include baregions (bo- og arbeidsregioner)
   if(x_year_end == 2020){
 
-    ba <- gen_location_name_ba_wide()
+    ba <- nor_loc_name_ba_wide()
 
     locations[
       ba,
@@ -89,7 +89,7 @@ gen_location_name_municip_wide <- function(x_year_end = 2020) {
 }
 
 
-gen_location_lab <- function(ndigit_labid = 6){
+nor_loc_lab <- function(ndigit_labid = 6){
 
   lab_raw <- data.table(readxl::read_excel(system.file("rawdata", "labnames_labcodes.xlsx", package = "spldata")))
   lab <- copy(lab_raw)
@@ -135,9 +135,9 @@ gen_location_lab <- function(ndigit_labid = 6){
 "norway_locations_names_b2020"
 
 # Creates the norway_locations data.table
-gen_location_name_all <- function(x_year_end = 2020) {
+nor_loc_name_all <- function(x_year_end = 2020) {
   # x_year_end <- 2020
-  location_wide <- hierarchy_all()
+  location_wide <- nor_loc_hierarchy_all()
 
   # municip_code, municip_name
   # county_code, county_name
@@ -200,7 +200,7 @@ gen_location_name_all <- function(x_year_end = 2020) {
 
   # lab ----
 
-  lab <- gen_location_lab()
+  lab <- nor_loc_lab()
 
   lab_wide <- copy(lab)
   setnames(lab_wide, c("lab_code", "lab_name"), c("location_code", "location_name"))
@@ -220,49 +220,49 @@ gen_location_name_all <- function(x_year_end = 2020) {
   d[granularity_geo== "missingcounty", location_name_description_nb := paste0(location_name, " (fylke)")]
 
 
-  d[norway_locations_hierarchy(from="municip",to="county",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="municip",to="county",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="notmainlandmunicip",to="notmainlandcounty",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="notmainlandmunicip",to="notmainlandcounty",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="missingmunicip",to="missingcounty",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="missingmunicip",to="missingcounty",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (kommune i ", to_name, ")")
   ]
 
-  d[norway_locations_hierarchy(from=c("wardoslo","extrawardoslo"),to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from=c("wardoslo","extrawardoslo"),to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="wardbergen",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="wardbergen",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="wardtrondheim",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="wardtrondheim",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="wardstavanger",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="wardstavanger",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
 
-  d[norway_locations_hierarchy(from="missingwardoslo",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="missingwardoslo",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="missingwardbergen",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="missingwardbergen",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="missingwardtrondheim",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="missingwardtrondheim",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
-  d[norway_locations_hierarchy(from="missingwardstavanger",to="municip",include_to_name = T, border = x_year_end),
+  d[norway_locations_hierarchy_from_to(from="missingwardstavanger",to="municip",include_to_name = T, border = x_year_end),
     on="location_code==from_code",
     location_name_description_nb := paste0(location_name, " (bydel i ", to_name, ")")
   ]
@@ -284,12 +284,12 @@ gen_location_name_all <- function(x_year_end = 2020) {
 
   # nb_ascii ----
   d[, location_name_file_nb_ascii := location_name_file_nb_utf]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$AA, "A")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$aa, "a")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$AE, "A")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$ae, "a")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$OE, "O")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, fhidata::nb$oe, "o")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$AA, "A")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$aa, "a")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$AE, "A")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$ae, "a")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$OE, "O")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$oe, "o")]
   # stringi::stri_escape_unicode(stringi::stri_enc_toutf8())
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u00e1", "a")]
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u0161", "s")]
@@ -326,12 +326,12 @@ gen_location_name_all <- function(x_year_end = 2020) {
 #' @examples
 #' norway_locations_names()
 #' @export
-# norway_locations_names <- function(border = fhidata::config$border){
-#   stopifnot(border==2020)
-#   if(border==2020){
-#     d <- copy(fhidata::norway_locations_names_b2020)
-#   }
-#   return(d)
-# }
+norway_locations_names <- function(border = spldata::config$border){
+  stopifnot(border==2020)
+  if(border==2020){
+    d <- copy(spldata::norway_locations_names_b2020)
+  }
+  return(d)
+}
 
 
