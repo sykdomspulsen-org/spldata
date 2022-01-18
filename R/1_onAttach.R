@@ -1,7 +1,8 @@
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(paste(
-    "spldata",
+  packageStartupMessage(paste0(
+    "spldata ",
     utils::packageDescription("spldata")$Version,
-    "https://docs.sykdomspulsen.no/spldata/"
+    "\n",
+    "https://docs.sykdomspulsen.no/spldata"
   ))
 }
