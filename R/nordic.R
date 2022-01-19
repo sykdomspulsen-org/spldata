@@ -94,6 +94,10 @@ isl_loc_names <- function(x_year_end) {
 
 # population ----
 
+#' Population in Denmark
+#'
+"denmark_population_by_age_b2020"
+
 dnk_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
@@ -104,6 +108,10 @@ dnk_population_by_age <- function(x_year_end) {
   d <- rbind(d,d1)
   return(d)
 }
+
+#' Population in Sweden
+#'
+"sweden_population_by_age_b2020"
 
 swe_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
@@ -116,6 +124,10 @@ swe_population_by_age <- function(x_year_end) {
   return(d)
 }
 
+#' Population in Finland
+#'
+"finland_population_by_age_b2020"
+
 fin_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
@@ -127,6 +139,9 @@ fin_population_by_age <- function(x_year_end) {
   return(d)
 }
 
+#' Population in Iceland
+#'
+"iceland_population_by_age_b2020"
 
 isl_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
