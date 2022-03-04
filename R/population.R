@@ -61,8 +61,10 @@ nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
     "Personer2019.csv",
     "Personer2020.csv",
     "Personer2021.csv",
+    "Personer2022.csv",
     "Personerward2001-2020.csv",
-    "Personerward2021.csv"
+    "Personerward2021.csv",
+    "Personerward2022.csv"
 
   )
   pop <- vector("list", length = length(popFiles))
