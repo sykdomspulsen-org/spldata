@@ -6,17 +6,17 @@
 
 # understand the raw data ----
 
-rawd <- data.table(readxl::read_excel(system.file("rawdata", "locations", "norway_locations.xlsx", package = "spldata")))
-rawd[county_code == 'county03']
-narrowd <- rawd[, .(year_start, year_end, municip_code, municip_code_end, municip_name,
-                    weighting, county_code, county_name)]
-
-narrowd
-narrowd[municip_name == 'Moss']
-
-
-
-narrowd[]
+# rawd <- data.table(readxl::read_excel(system.file("rawdata", "locations", "norway_locations.xlsx", package = "spldata")))
+# rawd[county_code == 'county03']
+# narrowd <- rawd[, .(year_start, year_end, municip_code, municip_code_end, municip_name,
+#                     weighting, county_code, county_name)]
+#
+# narrowd
+# narrowd[municip_name == 'Moss']
+#
+#
+#
+# narrowd[]
 
 # understand target data ----
 # dloc <- fhidata::norway_locations_redistricting_b2020

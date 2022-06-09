@@ -4,12 +4,10 @@
 \alias{set_config}
 \title{set_config}
 \usage{
-set_config(border = 2020, use_current_year_as_1900_pop = FALSE)
+set_config(border = 2020)
 }
 \arguments{
 \item{border}{The year}
-
-\item{use_current_year_as_1900_pop}{Replaces the year 1900's population data with the current year's population data}
 }
 \description{
 set_config

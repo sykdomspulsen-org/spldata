@@ -1,3 +1,4 @@
+library(data.table)
 #' Population in Norway (2020 borders).
 #'
 #' We conveniently package population data taken from Statistics Norway.
@@ -23,7 +24,7 @@
 "norway_population_by_age_b2020"
 
 
-nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
+nor_population_by_age_original <- function(x_year_end = 2020) {
 
   # x_year_end <- 2020
   # variables used in data.table functions in this function
@@ -69,8 +70,7 @@ nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
   )
   pop <- vector("list", length = length(popFiles))
   for (i in seq_along(pop)) {
-    pop[[i]] <- fread(system.file("rawdata", "population", popFiles[i],
-                                  package = "spldata"), encoding = "UTF-8")
+    pop[[i]] <- fread(fs::path("data-raw", "files", "population", popFiles[i]), encoding = "UTF-8")
     pop[[i]] <- melt.data.table(pop[[i]], id.vars = c("region", "age"))
   }
   pop <- rbindlist(pop)
@@ -185,8 +185,27 @@ nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
 
   pop_municip[, imputed := FALSE]
 
+  setnames(pop_municip, "municip_code", "location_code")
+  setnames(pop_municip, "population", "pop_jan1_n")
 
+  # year, municip_code, age, imputed, pop
+  # imputing the future (2 years+)
+  missing_years <- max(pop_municip$year):(lubridate::year(lubridate::today()) + 2)
 
+  if (length(missing_years) > 1) {
+    copied_years <- vector("list", length = length(missing_years) - 1)
+    for (i in seq_along(copied_years)) {
+      copied_years[[i]] <- pop_municip[year == missing_years[1]]
+      copied_years[[i]][, year := year + i]
+    }
+    copied_years <- rbindlist(copied_years)
+    copied_years[, imputed := TRUE]
+    pop_municip <- rbind(pop_municip, copied_years)
+  }
+
+  pop_municip[, granularity_geo := stringr::str_extract(location_code, "^[a-z]+")]
+
+  return(pop_municip)
 
   if (original) {
     return(pop_municip)
@@ -342,7 +361,7 @@ nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
   # age: -99
   cat("creating population for notmainland and missing ... \n")
 
-  pop_svalbard_raw <- readxl::read_excel(system.file("rawdata", "population", "Personer_svalbard_1990-2020.xlsx", package = "spldata"))
+  pop_svalbard_raw <- readxl::read_excel(fs::path("data-raw", "files", "population", "Personer_svalbard_1990-2020.xlsx"))
   # county21: all 4 rows
   # municip: everything apart from barentsburg
   pop_sv <- data.frame(t(pop_svalbard_raw[, -1]))
@@ -454,6 +473,12 @@ nor_population_by_age <- function(x_year_end = 2020, original = FALSE) {
 
   return(pop)
 }
+
+nor_population_by_age_b0000 <- nor_population_by_age_original(2020)
+saveRDS(nor_population_by_age_b0000, "data-raw/data-temp/nor_population_by_age_b0000.rds")
+# usethis::use_data(nor_population_by_age_b0000, overwrite = TRUE, internal = TRUE, compress = "xz", version = 3)
+
+
 
 
 

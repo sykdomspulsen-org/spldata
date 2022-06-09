@@ -1,3 +1,4 @@
+#' @import data.table
 .onAttach <- function(libname, pkgname) {
   version <- tryCatch(
     utils::packageDescription("spldata", fields = "Version"),
@@ -10,6 +11,6 @@
     "spldata ",
     version,
     "\n",
-    "https://docs.sykdomspulsen.no/spldata"
+    "https://docs.sykdomspulsen.no/spldata/"
   ))
 }
