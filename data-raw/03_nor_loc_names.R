@@ -335,6 +335,17 @@ norway_locations_names <- function(border = spldata::config$border){
   return(d)
 }
 
-nor_locations_names_b2020 <- nor_loc_name_all(2020)
-usethis::use_data(nor_locations_names_b2020, overwrite = TRUE, internal = TRUE, compress = "xz", version = 3)
+
+# saving internal
+
+env = new.env()
+load("R/sysdata.rda", envir = env)
+
+env$nor_locations_names_b2020 <- nor_loc_name_all(2020)
+
+for(i in names(env)){
+  .GlobalEnv[[i]] <- env[[i]]
+}
+txt <- paste0("usethis::use_data(",paste0(names(env),collapse=","),", overwrite = TRUE, internal = TRUE, compress = 'xz', version = 3)")
+eval(parse(text = txt))
 

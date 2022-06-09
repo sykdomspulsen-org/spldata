@@ -474,9 +474,17 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
   return(pop)
 }
 
-nor_population_by_age_b0000 <- nor_population_by_age_original(2020)
-saveRDS(nor_population_by_age_b0000, "data-raw/data-temp/nor_population_by_age_b0000.rds")
-# usethis::use_data(nor_population_by_age_b0000, overwrite = TRUE, internal = TRUE, compress = "xz", version = 3)
+
+env = new.env()
+load("R/sysdata.rda", envir = env)
+
+env$nor_population_by_age_b0000 <- nor_population_by_age_original(2020)
+
+for(i in names(env)){
+  .GlobalEnv[[i]] <- env[[i]]
+}
+txt <- paste0("usethis::use_data(",paste0(names(env),collapse=","),", overwrite = TRUE, internal = TRUE, compress = 'xz', version = 3)")
+eval(parse(text = txt))
 
 
 
