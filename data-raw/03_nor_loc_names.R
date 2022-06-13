@@ -118,7 +118,13 @@ nor_loc_lab <- function(ndigit_labid = 6){
 }
 
 
+nor_loc_hospitaltrusts <- function(){
 
+  ht <- data.table(readxl::read_excel(fs::path("data-raw", "files", "locations", "norway_hospital_trusts.xlsx")))
+  setDT(ht)
+
+  return(ht)
+}
 
 #' Names of areas in Norway that existed in 2020.
 #'
@@ -212,6 +218,12 @@ nor_loc_name_all <- function(x_year_end = 2020) {
   d <- rbind(d, lab_wide)
   d
 
+  # hospital trusts ----
+  ht <- nor_loc_hospitaltrusts()
+  ht <- ht[,c('location_code', 'location_name', 'granularity_geo')]
+  ht[, location_order := (1:nrow(ht) + max(d$location_order))]
+
+  d <- rbind(d, ht)
 
 
   # location name description nb ----
@@ -274,6 +286,12 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 
   d[granularity_geo == "lab", location_name_description_nb := paste0(location_name, " (lab)")]
 
+  d[granularity_geo == "regionalhealthauthority", location_name_description_nb := location_name]
+  d[granularity_geo == "missingregionalhealthauthority", location_name_description_nb := location_name]
+  d[granularity_geo == "allregionalhealthauthorities", location_name_description_nb := location_name]
+  d[granularity_geo == "hospitaltrust", location_name_description_nb := location_name]
+  d[granularity_geo == "missinghospitaltrusts", location_name_description_nb := location_name]
+  d[granularity_geo == "allhospitaltrust", location_name_description_nb := location_name]
 
   # nb_utf ----
   d[, location_name_file_nb_utf := location_name_description_nb]
