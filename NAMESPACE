@@ -2,6 +2,7 @@
 
 export(config)
 export(location_code_to_granularity_geo)
+export(location_code_to_iso3)
 export(nb)
 export(nor_locations_names)
 export(nor_locations_redistricting)
