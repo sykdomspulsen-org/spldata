@@ -40,14 +40,7 @@ location_code_to_granularity_geo <- function(x, location_reference = NULL){
 #' @param x datatable
 #' @export
 location_code_to_iso3 <- function(x){
-  location_reference <- list(
-    data.frame(
-      location_code = spldata::norway_locations_names()$location_code,
-      iso3 = "nor"
-    )
-  )
-  location_reference <- rbindlist(location_reference)
-  return(location_reference[data.table(location_code=as.character(x)), on = "location_code", iso3])
+  return(rep("nor", length(x)))
 }
 
 
