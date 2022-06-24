@@ -2,7 +2,7 @@
 % Please edit documentation in R/nor_locations_redistricting.R
 \name{nor_locations_redistricting}
 \alias{nor_locations_redistricting}
-\title{All redistricting in Norway (programmable borders).}
+\title{All redistricting in Norway}
 \usage{
 nor_locations_redistricting(border = spldata::config$border)
 }

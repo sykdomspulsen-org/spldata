@@ -140,17 +140,21 @@ nor_loc_hierarchy_from_to <- function(
   return(d)
 }
 
-#' Hierarchies in Norway (programmable borders).
+#' Location hierarchies in Norway
+#'
+#' Calculates the relationship between different locations in Norway, according
+#' to geographic granularity. For example, which municipalities are inside which counties.
 #'
 #' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param include_to_name Do you want to include the name of the 'to' location?
 #' @param border The border year
 #' @examples
-#' spldata::norway_locations_hierarchy_from_to(from="wardoslo", to="county")
-#' spldata::norway_locations_hierarchy_from_to(from="municip", to="baregion")
+#' spldata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
+#' spldata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
+#' @return Data.table.
 #' @export
-norway_locations_hierarchy_from_to <- function(
+nor_locations_hierarchy_from_to <- function(
   from,
   to,
   include_to_name = FALSE,

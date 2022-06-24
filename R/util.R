@@ -26,6 +26,9 @@ check_ref_to_new <- function(xref, xnew) {
 #' @param location_reference A location reference data.table
 #' @export
 location_code_to_granularity_geo <- function(x, location_reference = NULL){
+
+  granularity_geo <- NULL
+
   if(is.null(location_reference)){
     retval <- stringr::str_extract(x, "^[a-z]+")
     retval[retval=="norge"] <- "nation"

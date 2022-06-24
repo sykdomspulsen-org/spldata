@@ -2,7 +2,7 @@
 % Please edit documentation in R/nor_loc_names_wide.R
 \name{nor_locations_names}
 \alias{nor_locations_names}
-\title{All names in Norway (programmable borders).}
+\title{All names in Norway}
 \source{
 \url{https://no.wikipedia.org/wiki/Liste_over_norske_kommunenummer}
 }
@@ -25,7 +25,7 @@ nor_locations_names(border = spldata::config$border)
 }
 }
 \description{
-All names in Norway (programmable borders).
+All names in Norway
 }
 \examples{
 nor_locations_names()

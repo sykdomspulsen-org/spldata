@@ -622,7 +622,7 @@ nor_loc_redistricting_county <- function(
     ),
     keyby = .(
       municip_code = location_code,
-      year
+      year = calyear
     )
   ]
 
@@ -994,7 +994,7 @@ nor_loc_hierarchy_all <- function(
 # saving internal
 
 env = new.env()
-load("R/sysdata.rda", envir = env)
+if(file.exists("R/sysdata.rda")) load("R/sysdata.rda", envir = env)
 
 env$nor_locations_redistricting_b2020 <- nor_loc_redistricting_all(2020)
 env$nor_locations_hierarchy_b2020 <- nor_loc_hierarchy_all(x_year_end = 2020)

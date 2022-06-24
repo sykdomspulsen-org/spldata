@@ -1,5 +1,5 @@
 
-#' All names in Norway (programmable borders).
+#' All names in Norway
 #'
 #' @param border The border year
 #' @return

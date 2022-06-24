@@ -349,10 +349,10 @@ nor_loc_hierarchy_from_to <- function(
 #' @param include_to_name Do you want to include the name of the 'to' location?
 #' @param border The border year
 #' @examples
-#' norway_locations_hierarchy_from_to(from="wardoslo", to="county")
-#' norway_locations_hierarchy_from_to(from="municip", to="baregion")
+#' nor_locations_hierarchy_from_to(from="wardoslo", to="county")
+#' nor_locations_hierarchy_from_to(from="municip", to="baregion")
 #' @export
-norway_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
+nor_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
   plans <- expand.grid(
     from = from,
     to = to,

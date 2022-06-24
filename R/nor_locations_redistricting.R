@@ -1,4 +1,4 @@
-#' All redistricting in Norway (programmable borders).
+#' All redistricting in Norway
 #'
 #' This function returns a dataset that is used to transfer "original" datasets
 #' to the 2020 borders.
