@@ -20,7 +20,7 @@ se$oe <- "\u00F6"
 se$AE <- "\u00C4"
 se$ae <- "\u00E4"
 
-#' Config
+#' Environment containing configuration variables
 #' @examples
 #' print(ls(config))
 #' @export

@@ -3,7 +3,7 @@
 \docType{data}
 \name{config}
 \alias{config}
-\title{Config}
+\title{Environment containing configuration variables}
 \format{
 An object of class \code{environment} of length 1.
 }
@@ -11,7 +11,7 @@ An object of class \code{environment} of length 1.
 config
 }
 \description{
-Config
+Environment containing configuration variables
 }
 \examples{
 print(ls(config))

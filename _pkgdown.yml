@@ -25,20 +25,21 @@ authors:
   after: "See the [changelog](news/index.html) for other contributors. :pray:"
 
 reference:
-- title: Special characters
+- title: Configuration
+- contents:
+  - starts_with("config")
+  - ends_with("config")
+- title: Special unicode characters
 - contents:
   - nb
   - se
-- title: Norwegian population
+- title: Norwegian data
+- subtitle: Population
 - contents:
   - starts_with("nor_population")
-- title: Norwegian locations
+- subtitle: Norwegian locations
 - contents:
   - starts_with("nor_locations")
 - title: Location utilities
 - contents:
   - starts_with("location_code_")
-- title: Configuration
-- contents:
-  - starts_with("config")
-  - ends_with("config")
