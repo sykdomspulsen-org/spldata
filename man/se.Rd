@@ -13,4 +13,7 @@ se
 \description{
 Swedish characters in unicode
 }
+\examples{
+print(se)
+}
 \keyword{datasets}

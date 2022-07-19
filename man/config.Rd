@@ -13,4 +13,7 @@ config
 \description{
 Config
 }
+\examples{
+print(ls(config))
+}
 \keyword{datasets}

@@ -24,3 +24,21 @@ authors:
   before: "This package is proudly brought to you by:"
   after: "See the [changelog](news/index.html) for other contributors. :pray:"
 
+reference:
+- title: Special characters
+- contents:
+  - nb
+  - se
+- title: Norwegian population
+- contents:
+  - starts_with("nor_population")
+- title: Norwegian locations
+- contents:
+  - starts_with("nor_locations")
+- title: Location utilities
+- contents:
+  - starts_with("location_code_")
+- title: Configuration
+- contents:
+  - starts_with("config")
+  - ends_with("config")

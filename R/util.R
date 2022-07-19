@@ -20,34 +20,6 @@ check_ref_to_new <- function(xref, xnew) {
   }
 }
 
-
-#' location_code_to_granularity_geo
-#' @param x Datatable
-#' @param location_reference A location reference data.table
-#' @export
-location_code_to_granularity_geo <- function(x, location_reference = NULL){
-
-  granularity_geo <- NULL
-
-  if(is.null(location_reference)){
-    retval <- stringr::str_extract(x, "^[a-z]+")
-    retval[retval=="norge"] <- "nation"
-    return(retval)
-  } else {
-    return(location_reference[data.table(location_code=x), on = "location_code", granularity_geo])
-  }
-}
-
-
-#' location_code_to_iso3
-#' @param x datatable
-#' @export
-location_code_to_iso3 <- function(x){
-  return(rep("nor", length(x)))
-}
-
-
-
 zero_string <- function(n){
   x <- stringr::str_c(rep("0", n), collapse = "")
   x

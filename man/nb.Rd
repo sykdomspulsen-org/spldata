@@ -13,4 +13,7 @@ nb
 \description{
 Norwegian characters in unicode
 }
+\examples{
+print(nb)
+}
 \keyword{datasets}

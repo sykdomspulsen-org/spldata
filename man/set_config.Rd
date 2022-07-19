@@ -2,13 +2,16 @@
 % Please edit documentation in R/config_aa_environments.r
 \name{set_config}
 \alias{set_config}
-\title{set_config}
+\title{Set config}
 \usage{
 set_config(border = 2020)
 }
 \arguments{
 \item{border}{The year}
 }
+\value{
+Nothing. Side effect of setting the `config` environment.
+}
 \description{
-set_config
+Set config
 }
