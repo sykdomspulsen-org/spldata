@@ -14,6 +14,6 @@ nb
 Norwegian characters in unicode
 }
 \examples{
-print(nb)
+print(spldata::nb)
 }
 \keyword{datasets}

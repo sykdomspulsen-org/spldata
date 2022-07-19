@@ -14,6 +14,9 @@ config
 Environment containing configuration variables
 }
 \examples{
-print(ls(config))
+print(ls(spldata::config))
+for(i in names(spldata::config)){
+  print(spldata::config[[i]])
+}
 }
 \keyword{datasets}

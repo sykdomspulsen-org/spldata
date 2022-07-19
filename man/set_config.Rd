@@ -2,7 +2,7 @@
 % Please edit documentation in R/config_aa_environments.r
 \name{set_config}
 \alias{set_config}
-\title{Set config}
+\title{Set options in the package config}
 \usage{
 set_config(border = 2020)
 }
@@ -13,5 +13,5 @@ set_config(border = 2020)
 Nothing. Side effect of setting the `config` environment.
 }
 \description{
-Set config
+Set options in the package config
 }

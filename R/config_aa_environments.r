@@ -1,6 +1,6 @@
 #' Norwegian characters in unicode
 #' @examples
-#' print(nb)
+#' print(spldata::nb)
 #' @export nb
 nb <- list()
 nb$AA <- "\u00C5"
@@ -12,7 +12,7 @@ nb$ae <- "\u00E6"
 
 #' Swedish characters in unicode
 #' @examples
-#' print(se)
+#' print(spldata::se)
 #' @export se
 se <- list()
 se$OE <- "\u00D6"
@@ -22,12 +22,15 @@ se$ae <- "\u00E4"
 
 #' Environment containing configuration variables
 #' @examples
-#' print(ls(config))
+#' print(ls(spldata::config))
+#' for(i in names(spldata::config)){
+#'   print(spldata::config[[i]])
+#' }
 #' @export
 config <- new.env()
 config$border <- 2020
 
-#' Set config
+#' Set options in the package config
 #' @param border The year
 #' @returns Nothing. Side effect of setting the `config` environment.
 #' @export

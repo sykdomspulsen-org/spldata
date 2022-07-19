@@ -33,11 +33,10 @@ reference:
 - contents:
   - nb
   - se
-- title: Norwegian data
-- subtitle: Population
+- title: Norwegian population
 - contents:
   - starts_with("nor_population")
-- subtitle: Norwegian locations
+- title: Norwegian locations
 - contents:
   - starts_with("nor_locations")
 - title: Location utilities
