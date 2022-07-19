@@ -24,7 +24,7 @@ se$ae <- "\u00E4"
 #' @examples
 #' print(ls(spldata::config))
 #' for(i in names(spldata::config)){
-#'   print(spldata::config[[i]])
+#'   cat(i, ":", spldata::config[[i]], "\n")
 #' }
 #' @export
 config <- new.env()
