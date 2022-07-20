@@ -12,7 +12,9 @@ config
 }
 \description{
 Available configuration variables:
-- border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
+\itemize{
+\item border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
+}
 }
 \examples{
 print(ls(spldata::config))

@@ -19,13 +19,15 @@ nor_population_by_age_cats(
 }
 \value{
 A data.table containing the following columns:
-- granularity_geo
-- location_code
-- age (as specified in the argument "cats")
-- sex ("total")
-- calyear
-- pop_jan1_n
-- imputed
+\itemize{
+\item granularity_geo
+\item location_code
+\item age (as specified in the argument "cats")
+\item sex ("total")
+\item calyear
+\item pop_jan1_n
+\item imputed
+}
 }
 \description{
 A function that easily categorizes the Norwegian population into different age categories.

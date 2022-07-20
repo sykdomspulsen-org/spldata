@@ -10,7 +10,7 @@ set_config(border_nor = NULL)
 \item{border_nor}{The year in which Norwegian geographical boundaries were designated.}
 }
 \value{
-Nothing. Side effect of setting the `config` environment.
+Nothing. Side effect of setting the \code{config} environment.
 }
 \description{
 Set options in the package config

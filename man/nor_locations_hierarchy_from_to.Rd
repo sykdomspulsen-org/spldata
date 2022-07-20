@@ -22,9 +22,11 @@ nor_locations_hierarchy_from_to(
 }
 \value{
 Data.table containing the columns:
-- from_code
-- to_code
-- to_name (if include_to_name==TRUE)
+\itemize{
+\item from_code
+\item to_code
+\item to_name (if include_to_name==TRUE)
+}
 }
 \description{
 Calculates the relationship between different locations in Norway, according
