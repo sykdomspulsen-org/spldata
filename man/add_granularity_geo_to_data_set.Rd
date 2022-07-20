@@ -18,10 +18,12 @@ A data.table containing an extra column called "granularity_geo".
 Adds granularity_geo to a given data set
 }
 \examples{
+library(data.table)
 data <- data.table(location_code = c("norge", "county03", "blah"))
 spldata::add_granularity_geo_to_data_set(data)
 print(data)
 
+library(data.table)
 data <- data.table(location_code = c("norge", "county03", "blah"))
 spldata::add_granularity_geo_to_data_set(data, location_reference = spldata::nor_locations_names())
 print(data)

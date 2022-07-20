@@ -13,10 +13,12 @@ add_granularity_geo_to_data_set.data.table <- function(x, location_reference = N
 #' @param location_reference A location reference data.table.
 #' @returns A data.table containing an extra column called "granularity_geo".
 #' @examples
+#' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
 #' spldata::add_granularity_geo_to_data_set(data)
 #' print(data)
 #'
+#' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
 #' spldata::add_granularity_geo_to_data_set(data, location_reference = spldata::nor_locations_names())
 #' print(data)
@@ -39,6 +41,7 @@ add_iso3_to_data_set.data.table <- function(x){
 #' @param x A data.table containing a column called "location_code".
 #' @returns A data.table containing an extra column called "iso3".
 #' @examples
+#' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
 #' spldata::add_iso3_to_data_set(data)
 #' print(data)
