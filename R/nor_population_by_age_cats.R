@@ -21,20 +21,30 @@ nor_population_by_age_internal <- function(
 
 #' Population in Norway by categories
 #'
-#' A function that easily categorizes the populations for you.
-#' @param cats A list containing vectors that you want to categorize
+#' A function that easily categorizes the Norwegian population into different age categories.
+#'
+#' The current year is duplicated and added as "calyear==9999". This is in accordance with the
+#' spltidy principles regarding granularity_time=="event_*".
+#' @param cats A list containing vectors that you want to categorize.
 #' @param include_total Boolean. Should 'total' be included as an age cat?
-#' @param border The border year
+#' @param border The year in which Norwegian geographical boundaries were designated.
 #' @examples
 #' nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))
 #' nor_population_by_age_cats(cats = list("one to ten" = c(1:10), "eleven to twenty" = c(11:20)))
 #' nor_population_by_age_cats(cats = list(c(1:10), c(11:20), "021p"=c(21:200)))
-#' @return A data.table containing
+#' @return A data.table containing the following columns:
+#' - granularity_geo
+#' - location_code
+#' - age (as specified in the argument "cats")
+#' - sex ("total")
+#' - calyear
+#' - pop_jan1_n
+#' - imputed
 #' @export
 nor_population_by_age_cats <- function(
   cats = NULL,
   include_total = TRUE,
-  border = spldata::config$border
+  border = spldata::config$border_nor
 ){
 
   calyear <- NULL

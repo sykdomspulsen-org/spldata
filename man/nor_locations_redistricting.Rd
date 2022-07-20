@@ -7,9 +7,10 @@
 nor_locations_redistricting(border = spldata::config$border)
 }
 \arguments{
-\item{border}{The border year (2020)}
+\item{border}{The year in which Norwegian geographical boundaries were designated.}
 }
 \value{
+\format{data.table}
 \describe{
 \item{location_code_current}{The location code per today.}
 \item{location_code_original}{The location code as of 'year'.}

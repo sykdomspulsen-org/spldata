@@ -7,21 +7,32 @@
 nor_population_by_age_cats(
   cats = NULL,
   include_total = TRUE,
-  border = spldata::config$border
+  border = spldata::config$border_nor
 )
 }
 \arguments{
-\item{cats}{A list containing vectors that you want to categorize}
+\item{cats}{A list containing vectors that you want to categorize.}
 
 \item{include_total}{Boolean. Should 'total' be included as an age cat?}
 
-\item{border}{The border year}
+\item{border}{The year in which Norwegian geographical boundaries were designated.}
 }
 \value{
-A data.table containing
+A data.table containing the following columns:
+- granularity_geo
+- location_code
+- age (as specified in the argument "cats")
+- sex ("total")
+- calyear
+- pop_jan1_n
+- imputed
 }
 \description{
-A function that easily categorizes the populations for you.
+A function that easily categorizes the Norwegian population into different age categories.
+}
+\details{
+The current year is duplicated and added as "calyear==9999". This is in accordance with the
+spltidy principles regarding granularity_time=="event_*".
 }
 \examples{
 nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))

@@ -8,7 +8,7 @@ nor_locations_hierarchy_from_to(
   from,
   to,
   include_to_name = FALSE,
-  border = spldata::config$border
+  border = spldata::config$border_nor
 )
 }
 \arguments{
@@ -18,10 +18,13 @@ nor_locations_hierarchy_from_to(
 
 \item{include_to_name}{Do you want to include the name of the 'to' location?}
 
-\item{border}{The border year}
+\item{border}{The year in which Norwegian geographical boundaries were designated.}
 }
 \value{
-Data.table.
+Data.table containing the columns:
+- from_code
+- to_code
+- to_name (if include_to_name==TRUE)
 }
 \description{
 Calculates the relationship between different locations in Norway, according

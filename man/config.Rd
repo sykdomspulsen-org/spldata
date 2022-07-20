@@ -3,7 +3,7 @@
 \docType{data}
 \name{config}
 \alias{config}
-\title{Environment containing configuration variables}
+\title{An environment containing configuration variables}
 \format{
 An object of class \code{environment} of length 1.
 }
@@ -11,7 +11,8 @@ An object of class \code{environment} of length 1.
 config
 }
 \description{
-Environment containing configuration variables
+Available configuration variables:
+- border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
 }
 \examples{
 print(ls(spldata::config))

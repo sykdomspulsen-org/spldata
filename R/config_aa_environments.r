@@ -20,7 +20,10 @@ se$oe <- "\u00F6"
 se$AE <- "\u00C4"
 se$ae <- "\u00E4"
 
-#' Environment containing configuration variables
+#' An environment containing configuration variables
+#'
+#' Available configuration variables:
+#' - border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
 #' @examples
 #' print(ls(spldata::config))
 #' for(i in names(spldata::config)){
@@ -28,13 +31,15 @@ se$ae <- "\u00E4"
 #' }
 #' @export
 config <- new.env()
-config$border <- 2020
+config$border_nor <- 2020
 
 #' Set options in the package config
-#' @param border The year
+#' @param border_nor The year in which Norwegian geographical boundaries were designated.
 #' @returns Nothing. Side effect of setting the `config` environment.
 #' @export
-set_config <- function(border = 2020){
-  stopifnot(border %in% c(2020))
-  config$border <- border
+set_config <- function(border_nor = NULL){
+  if(!is.null(border_nor)){
+    stopifnot(border_nor %in% c(2020))
+    config$border_nor <- border_nor
+  }
 }

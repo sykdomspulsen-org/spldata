@@ -4,10 +4,10 @@
 \alias{set_config}
 \title{Set options in the package config}
 \usage{
-set_config(border = 2020)
+set_config(border_nor = NULL)
 }
 \arguments{
-\item{border}{The year}
+\item{border_nor}{The year in which Norwegian geographical boundaries were designated.}
 }
 \value{
 Nothing. Side effect of setting the `config` environment.

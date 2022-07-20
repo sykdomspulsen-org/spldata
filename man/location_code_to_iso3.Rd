@@ -7,7 +7,7 @@
 location_code_to_iso3(x)
 }
 \arguments{
-\item{x}{datatable}
+\item{x}{Either a vector, or a data.frame/data.table containing a column called "location_code"}
 }
 \value{
 Character vector the same length as x, containing the corresponding iso3

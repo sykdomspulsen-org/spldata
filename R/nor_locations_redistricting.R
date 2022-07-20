@@ -3,8 +3,9 @@
 #' This function returns a dataset that is used to transfer "original" datasets
 #' to the 2020 borders.
 #'
-#' @param border The border year (2020)
+#' @param border The year in which Norwegian geographical boundaries were designated.
 #' @return
+#' \format{data.table}
 #' \describe{
 #' \item{location_code_current}{The location code per today.}
 #' \item{location_code_original}{The location code as of 'year'.}

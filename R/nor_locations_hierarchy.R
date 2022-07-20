@@ -148,17 +148,20 @@ nor_loc_hierarchy_from_to <- function(
 #' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param include_to_name Do you want to include the name of the 'to' location?
-#' @param border The border year
+#' @param border The year in which Norwegian geographical boundaries were designated.
 #' @examples
 #' spldata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
 #' spldata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
-#' @return Data.table.
+#' @returns Data.table containing the columns:
+#' - from_code
+#' - to_code
+#' - to_name (if include_to_name==TRUE)
 #' @export
 nor_locations_hierarchy_from_to <- function(
   from,
   to,
   include_to_name = FALSE,
-  border = spldata::config$border
+  border = spldata::config$border_nor
 ){
   plans <- expand.grid(
     from = from,
