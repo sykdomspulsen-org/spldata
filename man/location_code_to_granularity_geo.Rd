@@ -7,12 +7,12 @@
 location_code_to_granularity_geo(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{Either a vector, or a data.frame/data.table containing a column called "location_code"}
+\item{x}{Either a vector, or a data.frame/data.table containing a column called "location_code".}
 
-\item{location_reference}{A location reference data.table}
+\item{location_reference}{A location reference data.table.}
 }
 \value{
-Character vector the same length as x, containing the corresponding granularity_geo
+Character vector the same length as x, containing the corresponding granularity_geo.
 }
 \description{
 Convert location_code to granularity_geo

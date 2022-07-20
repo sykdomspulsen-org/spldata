@@ -27,9 +27,9 @@ location_code_to_granularity_geo.default <- function(x, location_reference = NUL
 }
 
 #' Convert location_code to granularity_geo
-#' @param x Either a vector, or a data.frame/data.table containing a column called "location_code"
-#' @param location_reference A location reference data.table
-#' @returns Character vector the same length as x, containing the corresponding granularity_geo
+#' @param x Either a vector, or a data.frame/data.table containing a column called "location_code".
+#' @param location_reference A location reference data.table.
+#' @returns Character vector the same length as x, containing the corresponding granularity_geo.
 #' @examples
 #' spldata::location_code_to_granularity_geo(c("norge", "county03"))
 #' @export
@@ -48,8 +48,8 @@ location_code_to_iso3.default <- function(x){
 }
 
 #' Convert location_code to iso3
-#' @param x Either a vector, or a data.frame/data.table containing a column called "location_code"
-#' @returns Character vector the same length as x, containing the corresponding iso3
+#' @param x Either a vector, or a data.frame/data.table containing a column called "location_code".
+#' @returns Character vector the same length as x, containing the corresponding iso3.
 #' @examples
 #' spldata::location_code_to_iso3(c("norge", "county03"))
 #' @export
