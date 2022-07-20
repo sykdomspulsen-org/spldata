@@ -1,3 +1,4 @@
+#' @export
 location_code_to_granularity_geo.data.table <- function(x, location_reference = NULL){
 
   granularity_geo <- NULL
@@ -11,6 +12,7 @@ location_code_to_granularity_geo.data.table <- function(x, location_reference = 
   }
 }
 
+#' @export
 location_code_to_granularity_geo.default <- function(x, location_reference = NULL){
 
   granularity_geo <- NULL
@@ -35,10 +37,12 @@ location_code_to_granularity_geo <- function(x, location_reference = NULL){
   UseMethod("location_code_to_granularity_geo")
 }
 
+#' @export
 location_code_to_iso3.data.table <- function(x){
   return(rep("nor", nrow(x)))
 }
 
+#' @export
 location_code_to_iso3.default <- function(x){
   return(rep("nor", length(x)))
 }

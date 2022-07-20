@@ -1,4 +1,7 @@
+#' @export
 add_granularity_geo_to_data_set.data.table <- function(x, location_reference = NULL){
+  granularity_geo <- NULL
+
   x[, granularity_geo := location_code_to_granularity_geo(x, location_reference = location_reference)]
   data.table::shouldPrint(x)
   invisible(x)
@@ -22,8 +25,10 @@ add_granularity_geo_to_data_set <- function(x, location_reference = NULL){
   UseMethod("add_granularity_geo_to_data_set")
 }
 
+#' @export
 add_iso3_to_data_set.data.table <- function(x){
   granularity_geo <- NULL
+
   x[, granularity_geo := location_code_to_iso3(x)]
   data.table::shouldPrint(x)
   invisible(x)
