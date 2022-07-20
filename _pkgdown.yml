@@ -42,3 +42,4 @@ reference:
 - title: Location utilities
 - contents:
   - starts_with("location_code_")
+  - starts_with("add_")

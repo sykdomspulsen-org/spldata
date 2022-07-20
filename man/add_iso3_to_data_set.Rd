@@ -8,8 +8,6 @@ add_iso3_to_data_set(x)
 }
 \arguments{
 \item{x}{A data.table containing a column called "location_code".}
-
-\item{location_reference}{A location reference data.table.}
 }
 \value{
 A data.table containing an extra column called "iso3".

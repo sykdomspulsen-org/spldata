@@ -31,7 +31,6 @@ add_iso3_to_data_set.data.table <- function(x){
 #' Adds iso3 to a given data set
 #'
 #' @param x A data.table containing a column called "location_code".
-#' @param location_reference A location reference data.table.
 #' @returns A data.table containing an extra column called "iso3".
 #' @examples
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
