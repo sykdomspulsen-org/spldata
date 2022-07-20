@@ -4,8 +4,7 @@
 #' to the 2020 borders.
 #'
 #' @param border The year in which Norwegian geographical boundaries were designated.
-#' @return
-#' \format{data.table}
+#' @returns
 #' \describe{
 #' \item{location_code_current}{The location code per today.}
 #' \item{location_code_original}{The location code as of 'year'.}

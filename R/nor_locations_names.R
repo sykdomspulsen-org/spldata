@@ -2,8 +2,7 @@
 #' All names in Norway
 #'
 #' @param border The border year
-#' @return
-#' @format{data.table}
+#' @returns
 #' \describe{
 #' \item{location_code}{Location code.}
 #' \item{location_name}{Location name.}
